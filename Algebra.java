@@ -25,27 +25,49 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		int result = x1;
-		for(int i = 0; i < x2; i++){
-			result++;
+		if(x2 > 0){
+		    int result = x1;
+		    for(int i = 0; i < x2; i++){
+			    result++;
+		    }
+		    return result;
+		}else{
+			int result = x1;
+		    for(int i = 0; i > x2; i--){
+			    result--;
+		    }
+		    return result;
+
 		}
-		return result;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
 		int result = x1;
-		for(int i = 1; i <= x2; i++){
-			result--;
-		}
-		return result;
+		if(x2 >= 0){
+	        for(int i = 0; i < x2; i++){
+			    result--;
+		    }
+	    }else{
+	        for(int i = 0; i > x2; i--){
+			    result++;
+			}  
+		}return result;
+
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		int result = x1;
-		for(int i = 1; i < x2; i++){
-			result = plus(result, x1);
+		int result = 0;
+		if(x2 > 0){
+			for(int i = 0; i < x2; i++){
+				result = plus(result, x1);
+			}
+		}else{
+			for(int i = 0; i > x2; i--){
+				result = plus(result, x1);
+			}
+			result = minus(0, result);
 		}
 		return result;
 	}
@@ -66,16 +88,40 @@ public class Algebra {
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
 		int result = 0;
-		while(x1 > 0){
-			x1 = minus(x1, x2);
-			result++;
-			if(x1 < 0){
-				result--;
+		if(x2 > 0){
+		    while(x1 > 0){
+			    x1 = minus(x1, x2);
+			    result++;
+			    if(x1 < 0){
+				    result--;
+				}
+		    }
+		}else if((x1 < 0) && (x2 < 0)){
+		    int x11 = Math.abs(x1);
+			int x22 = Math.abs(x2);
+			while(x11 > 0){
+			    x11 = minus(x11, x22);
+			    result++;
+			    if(x11 < 0){
+				    result--;
+				}
+			}	
+            result = minus(0,result);
+		}else if(((x1 < 0) && (x2 > 0)) || ((x1 > 0) && (x2 < 0))){
+			int x11 = Math.abs(x1);
+			int x22 = Math.abs(x2);
+			while(x1 > 0){
+			    x11 = minus(x11, x22);
+			    result++;
+			    if(x11 < 0){
+				    result--;
+				}
 			}
+			result = minus(0, result);	
 		}
 		return result;
-	}
-
+	    
+    }
 	// Returns x1 % x2
 	public static int mod(int x1, int x2){
 		while(x1 > 0){
