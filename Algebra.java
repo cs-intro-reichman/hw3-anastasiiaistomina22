@@ -25,43 +25,136 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		if(x2 > 0){
+		    int result = x1;
+		    for(int i = 0; i < x2; i++){
+			    result++;
+		    }
+		    return result;
+		}else{
+			int result = x1;
+		    for(int i = 0; i > x2; i--){
+			    result--;
+		    }
+		    return result;
+
+		}
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int result = x1;
+		if(x2 >= 0){
+	        for(int i = 0; i < x2; i++){
+			    result--;
+		    }
+	    }else{
+	        for(int i = 0; i > x2; i--){
+			    result++;
+			}  
+		}return result;
+
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int result = 0;
+		if(x2 > 0){
+			for(int i = 0; i < x2; i++){
+				result = plus(result, x1);
+			}
+		}else{
+			for(int i = 0; i > x2; i--){
+				result = plus(result, x1);
+			}
+			result = minus(0, result);
+		}
+		return result;
 	}
 
 	// Returns x^n (for n >= 0)
-	public static int pow(int x, int n) {
-		// Replace the following statement with your code
-		return 0;
+	public static int pow(int x, int n){
+		int result = 1;
+		if(n == 0){
+			return 1;
+		}else{
+            for(int i = 1; i <= n; i++){
+				result = times(result, x);
+			}
+			return result;
+		}
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		// Replace the following statement with your code
+		int result = 0;
+		if(x2 > 0){
+		    while(x1 > 0){
+			    x1 = minus(x1, x2);
+			    result++;
+			    if(x1 < 0){
+				    result--;
+				}
+		    }
+		}else if((x1 < 0) && (x2 < 0)){
+		    int x11 = Math.abs(x1);
+			int x22 = Math.abs(x2);
+			while(x11 > 0){
+			    x11 = minus(x11, x22);
+			    result++;
+			    if(x11 < 0){
+				    result--;
+				}
+			}	
+            result = minus(0,result);
+		}else if(((x1 < 0) && (x2 > 0)) || ((x1 > 0) && (x2 < 0))){
+			int x11 = Math.abs(x1);
+			int x22 = Math.abs(x2);
+			while(x1 > 0){
+			    x11 = minus(x11, x22);
+			    result++;
+			    if(x11 < 0){
+				    result--;
+				}
+			}
+			result = minus(0, result);	
+		}
+		return result;
+	    
+    }
+	// Returns x1 % x2
+	public static int mod(int x1, int x2){
+		while(x1 > 0){
+			x1 = minus(x1, x2);	
+		}
+		if(x1 == 0){
+			return 0;
+		}else if(x1 < 0){
+			return plus(x1, x2);
+		}
 		return 0;
 	}
-
-	// Returns x1 % x2
-	public static int mod(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
-	}	
+	
+		
+		
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		// Replace the following statement with your code
-		return 0;
-	}	  	  
+        int y = x;
+        int L = 1, H = y;
+        int g = div(plus(L, H), 2);
+		int i = 0;
+        while (times(g, g) != x) {
+            if (times(g, g) < x){
+                L = g;
+                i ++;}
+            else{
+                H = g;
+				i++;}
+        g = div(plus(L, H), 2);
+		if (i > 1000)
+        break;    
+	    }
+	return g;		  	  
+    }
 }
